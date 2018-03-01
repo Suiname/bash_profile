@@ -11,4 +11,4 @@ alias cleanup='rm ~/Downloads/*.nzb && rm ~/Downloads/*.torrent'
 alias code='open -a "Visual Studio Code"'
 alias cleanup='rm ~/Downloads/*.nzb && rm ~/Downloads/*.torrent'
 
-. ~/.bash_prompt
+. ./.bash_prompt
