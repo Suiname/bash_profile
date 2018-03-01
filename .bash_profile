@@ -1,5 +1,29 @@
 export EDITOR="nano"
 
+exists()
+{
+  command -v "$1" >/dev/null 2>&1
+}
+
+if ! exists brew; then
+  echo "Installing homebrew..."
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+if ! exists pyenv; then
+  echo "Installing pyenv..."
+  brew update
+  brew install pyenv
+fi
+
+if exists pyenv; then
+  eval "$(pyenv init -)"
+fi
+
+if ! exists nvm; then
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
