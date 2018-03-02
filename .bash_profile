@@ -47,3 +47,4 @@ alias code='open -a "Visual Studio Code"'
 alias cleanup='rm ~/Downloads/*.nzb && rm ~/Downloads/*.torrent'
 
 . $( dirname "${BASH_SOURCE[0]}" )/.bash_prompt
+source  $( dirname "${BASH_SOURCE[0]}" )/git-flow-completion.bash
