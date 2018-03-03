@@ -1,5 +1,9 @@
 export EDITOR="nano"
 
+# Hide/show hidden files in Finder
+alias hide_files="defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder"
+alias show_files="defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder"
+
 exists()
 {
   command -v "$1" >/dev/null 2>&1
@@ -18,6 +22,19 @@ fi
 
 if exists pyenv; then
   eval "$(pyenv init -)"
+fi
+
+if ! exists rbenv; then
+  echo "Installing rbenv..."
+  brew update
+  brew install rbenv
+  PATH=~/.rbenv/shims:$PATH
+  source ~/.rbenv/completions/rbenv.bash
+else
+  #rbenv config and rehash
+  PATH=~/.rbenv/shims:$PATH
+  source ~/.rbenv/completions/rbenv.bash
+  rbenv rehash
 fi
 
 export NVM_DIR="$HOME/.nvm"
@@ -44,7 +61,6 @@ alias gc='git commit -m'
 alias gp='git push'
 alias cleanup='rm ~/Downloads/*.nzb && rm ~/Downloads/*.torrent'
 alias code='open -a "Visual Studio Code"'
-alias cleanup='rm ~/Downloads/*.nzb && rm ~/Downloads/*.torrent'
 
 . $( dirname "${BASH_SOURCE[0]}" )/.bash_prompt
 source  $( dirname "${BASH_SOURCE[0]}" )/git-flow-completion.bash
