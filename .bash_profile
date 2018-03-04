@@ -10,6 +10,7 @@ exists()
 }
 
 if ! exists brew; then
+  echo "homebrew not installed, script is going to install a lot of utlities, could take a while..."
   echo "Installing homebrew..."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
@@ -22,6 +23,38 @@ fi
 
 if exists pyenv; then
   eval "$(pyenv init -)"
+fi
+
+if exists pyenv-virtualenv; then
+  eval "$(pyenv virtualenv-init -)"
+else
+  echo "Installing pyenv-virtualenv..."
+  brew install pyenv-virtualenv
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+check_global()
+{
+  # check to make sure global python is not set to system
+  if [ "$(pyenv global)" = "system" ]; then
+    # check to see if version 2.7.14 exists, if not install it
+    if [ -f ~/.pyenv/version/2.7.14 ]; then
+      pyenv global 2.7.14
+    else
+      pyenv install 2.7.14
+      pyenv global 2.7.14
+    fi
+  fi
+}
+
+if exists pyenv-virtualenvwrapper; then
+  check_global
+  eval "$(pyenv virtualenvwrapper)"
+else
+  echo "Installing pyenv-virtualenvwrapper..."
+  brew install pyenv-virtualenvwrapper
+  check_global
+  eval "$(pyenv virtualenvwrapper)"
 fi
 
 if ! exists rbenv; then
