@@ -25,16 +25,13 @@ if exists pyenv; then
 fi
 
 if ! exists rbenv; then
-  echo "Installing rbenv..."
+  echo "Installing and configuring rbenv..."
   brew update
   brew install rbenv
-  PATH=~/.rbenv/shims:$PATH
-  source ~/.rbenv/completions/rbenv.bash
+  rbenv init
 else
   #rbenv config and rehash
-  PATH=~/.rbenv/shims:$PATH
-  source ~/.rbenv/completions/rbenv.bash
-  rbenv rehash
+  eval "$(rbenv init -)"
 fi
 
 export NVM_DIR="$HOME/.nvm"
