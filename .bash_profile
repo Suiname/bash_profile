@@ -49,12 +49,12 @@ check_global()
 
 if exists pyenv-virtualenvwrapper; then
   check_global
-  eval "$(pyenv virtualenvwrapper)"
+  pyenv virtualenvwrapper
 else
   echo "Installing pyenv-virtualenvwrapper..."
   brew install pyenv-virtualenvwrapper
   check_global
-  eval "$(pyenv virtualenvwrapper)"
+  pyenv virtualenvwrapper
 fi
 
 if ! exists rbenv; then
